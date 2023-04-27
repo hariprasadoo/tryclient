@@ -1,21 +1,23 @@
 "use client"
 import { useState } from 'react';
 import useRequest from '../../hooks/use-request';
-import Router from "next/router";
 import Link from "next/link"
+import { useRouter } from 'next/navigation';
+
+
 
 function SignIn() {
-
+  const router = useRouter()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { doRequest, errors } = useRequest({
-    url: 'http://localhost:3005',
+    url: 'http://localhost:3005/api/auth',
     method: 'post',
     body: {
       email,
       password
     },
-    onSuccess: () => Router.push('/')
+    onSuccess: () => router.push('/dashboard')
   });
  
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
